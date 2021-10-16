@@ -7,8 +7,8 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
+
+
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('smartClear', { prevSubject: 'element' }, (subject, options) => {
+    cy.get(subject.selector)
+        .invoke('val')
+        .then((val, $abc) => {
+            for (const char in val) {
+                cy.get(subject.selector).type('{backspace}');
+            }
+        });
+});
