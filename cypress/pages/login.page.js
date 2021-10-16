@@ -6,8 +6,8 @@ class LoginPage extends Page {
     get inputPassword () { return cy.get('#normal_login_password') }
     get buttonLogIn () { return cy.get('.login-form-button') }
     get notification() {return cy.get('.ant-notification-notice-message') }
-    get emailValidation() {return cy.get('//div[contains(@class, "ant-form-item-with-help")][div//input[@id="normal_login_email"]]//div[@role="alert"]')}
-    get passwordValidation() {return cy.get('//div[contains(@class, "ant-form-item-with-help")][div//input[@id="normal_login_password"]]//div[@role="alert"]')}
+    get emailValidation() {return cy.xpath('//div[contains(@class, "ant-form-item-with-help")][div//input[@id="normal_login_email"]]//div[@role="alert"]')}
+    get passwordValidation() {return cy.xpath('//div[contains(@class, "ant-form-item-with-help")][div//input[@id="normal_login_password"]]//div[@role="alert"]')}
 
     login(email, password) {
         this.inputEmail.type(email);
