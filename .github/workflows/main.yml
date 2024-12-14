@@ -1,0 +1,35 @@
+on:
+  workflow_dispatch:
+
+name: Cypress UI localcoding
+  
+jobs:
+  my_job:
+    name: run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Execute Cypress tests
+        uses: cypress-io/github-action@v6.5.0
+        with: 
+          command: npx cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=./junit/file-[hash].xml
+      - name: Setup Python
+        if: always()
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: '3.x'
+      - name: Execute TestRail CLI to upload results
+        if: always()
+        run: |
+          pip install trcli
+          junitparser merge --glob "./junit/file-*" "./junit/file.xml"
+          trcli -y \
+            -h "https://systemkitpro.testrail.io/" \
+            --project "CypasvUI" \
+            -u ${{USER_EMAIL}} \
+            -p ${{PASSWORD}} \
+            parse_junit \
+            --title "Automated Tests from GitHub workflow" \
+            --run-description ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
+            -f "./junit/file.xml"
