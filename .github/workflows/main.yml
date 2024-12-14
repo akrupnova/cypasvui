@@ -13,7 +13,7 @@ jobs:
       - name: Execute Cypress tests
         uses: cypress-io/github-action@v6.5.0
         with: 
-          command: npx cypress run --reporter junit --reporter-options mochaFile=./junit/file-[hash].xml
+          command: npx cypress run --reporter junit --reporter-options mochaFile=./junit/file-[hash].xml,testCaseSwitchClassnameAndName=true
       - name: Setup Python
         if: always()
         uses: actions/setup-python@v5.3.0
