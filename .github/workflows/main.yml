@@ -27,8 +27,8 @@ jobs:
           trcli -y \
             -h "https://systemkitpro.testrail.io/" \
             --project "CypasvUI" \
-            -u ${{USER_EMAIL}} \
-            -p ${{PASSWORD}} \
+            -u ${{ secrets.USER_EMAIL }} \
+            -p ${{ secrets.PASSWORD }} \
             parse_junit \
             --title "Automated Tests from GitHub workflow" \
             --run-description ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
