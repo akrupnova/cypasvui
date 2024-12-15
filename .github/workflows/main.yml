@@ -29,8 +29,8 @@ jobs:
             --project "CypasvUI" \
             -u ${{ secrets.USER_EMAIL }} \
             -p ${{ secrets.PASSWORD }} \
-            --case-matcher "name" \
             parse_junit \
+            --case-matcher "name" \
             --title "Automated Tests from GitHub workflow" \
             --run-description ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
             -f "./junit/file.xml"
